@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharperMindToCBetter", "SharperMindToCBetter\SharperMindToCBetter.csproj", "{BCB86C60-F100-4A02-A969-543CE9D22F60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharperTestsToCBetter", "SharperTestsToCBetter\SharperTestsToCBetter.csproj", "{8B72E072-1F71-4DC9-9106-D851FC90601A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{BCB86C60-F100-4A02-A969-543CE9D22F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCB86C60-F100-4A02-A969-543CE9D22F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCB86C60-F100-4A02-A969-543CE9D22F60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B72E072-1F71-4DC9-9106-D851FC90601A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B72E072-1F71-4DC9-9106-D851FC90601A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B72E072-1F71-4DC9-9106-D851FC90601A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B72E072-1F71-4DC9-9106-D851FC90601A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

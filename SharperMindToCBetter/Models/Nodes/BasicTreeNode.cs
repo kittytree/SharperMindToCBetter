@@ -1,12 +1,11 @@
-namespace SharperMindToCBetter.Classes;
+namespace SharperMindToCBetter.Models.Nodes;
 
-public class Node
+public class BasicTreeNode : Node
 {
-    public int Value { get; set; }
-    public Node? Left { get; set; }
-    public Node? Right { get; set; }
+    public BasicTreeNode? Left { get; set; }
+    public BasicTreeNode? Right { get; set; }
 
-    public void PrintNode()
+    public override void PrintNode()
     {
         var printNode = $"Value: {Value}";
         printNode += (Left is null) switch

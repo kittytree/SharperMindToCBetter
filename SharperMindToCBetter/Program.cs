@@ -1,12 +1,9 @@
-﻿using SharperMindToCBetter.Tests;
-
-namespace SharperMindToCBetter;
+﻿namespace SharperMindToCBetter;
 public class Program
 {
     public static void Main(string[] args)
     {
         Console.WriteLine("Testing sample initial commit function");
-        NodeTester.TestPrintingFunction(5);
     }
 }
 
