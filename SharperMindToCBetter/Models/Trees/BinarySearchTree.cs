@@ -4,6 +4,7 @@ namespace SharperMindToCBetter.Models.Trees;
 
 public class BinarySearchTree
 {
+    public int Count { get; set; }
     private BasicTreeNode? Root { get; set; }
 
     
@@ -14,6 +15,8 @@ public class BinarySearchTree
     }
     private void InsertNode(BasicTreeNode node)
     {
+        Count++;
+        
         if (Root is null)
         {
             Root = node;
@@ -59,6 +62,8 @@ public class BinarySearchTree
             Console.WriteLine("Tree is empty");
             return;
         }
+
+        Count--;
 
         if (Root.IsEqual(value))
         {
