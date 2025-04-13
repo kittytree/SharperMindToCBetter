@@ -4,7 +4,6 @@ namespace SharperMindToCBetter.Models.Trees;
 
 public class BinarySearchTree
 {
-    private int Count { get; set; }
     private BasicTreeNode? Root { get; set; }
 
     
@@ -15,8 +14,6 @@ public class BinarySearchTree
     }
     private void InsertNode(BasicTreeNode node)
     {
-        Count += 1;
-
         if (Root is null)
         {
             Root = node;
@@ -99,7 +96,7 @@ public class BinarySearchTree
             return;
         }
         
-        DeleteValueRecursive(value, parentOfValueToFind);
+        DeleteValue(value, parentOfValueToFind);
     }
     
     // todo refactor so it's not a terrible mess
@@ -154,7 +151,7 @@ public class BinarySearchTree
 
     // todo refactor so it's not a terrible mess
 
-    private static void DeleteValueRecursive(int value, BasicTreeNode currentNode)
+    private static bool DeleteValue(int value, BasicTreeNode currentNode)
     {
         var isParentGreatThanValue = currentNode.IsGreater(value);
 
@@ -164,7 +161,7 @@ public class BinarySearchTree
             if (currentNode.Left is null)
             {
                 Console.WriteLine("Value not found");
-                return;
+                return false;
             }
 
             // case 1: no children
@@ -172,7 +169,7 @@ public class BinarySearchTree
             {
                 currentNode.Left = null;
                 Console.WriteLine("Value deleted");
-                return;
+                return true;
             }
             
             // case 2: 1 child
@@ -180,13 +177,13 @@ public class BinarySearchTree
             {
                 currentNode.Left = currentNode.Left.Left;
                 Console.WriteLine("Value deleted");
-                return;
+                return true;
             }
             else if (currentNode.Left.Left is null && currentNode.Left.Right is not null)
             {
                 currentNode.Left = currentNode.Left.Right;
                 Console.WriteLine("Value deleted");
-                return;
+                return true;
             }
             
             // case 3: both children
@@ -195,17 +192,14 @@ public class BinarySearchTree
             toReplaceNode.Left = currentNode.Left.Left;
             toReplaceNode.Right = currentNode.Left.Right;
 
-            var tempNode = currentNode.Left;
             currentNode.Left = toReplaceNode;
-            tempNode.Left = null;
-            tempNode.Right = null;
         }
         else
         {
             if (currentNode.Right is null)
             {
                 Console.WriteLine("Value not found");
-                return;
+                return false;
             }
 
             // case 1: no children
@@ -213,7 +207,7 @@ public class BinarySearchTree
             {
                 currentNode.Right = null;
                 Console.WriteLine("Value deleted");
-                return;
+                return true;
             }
             
             // case 2: 1 child
@@ -221,13 +215,13 @@ public class BinarySearchTree
             {
                 currentNode.Right = currentNode.Right.Left;
                 Console.WriteLine("Value deleted");
-                return;
+                return true;
             }
             else if (currentNode.Right.Left is null && currentNode.Right.Right is not null)
             {
                 currentNode.Right = currentNode.Right.Right;
                 Console.WriteLine("Value deleted");
-                return;
+                return true;
             }
             
             // case 3: both children
@@ -236,20 +230,22 @@ public class BinarySearchTree
             toReplaceNode.Left = currentNode.Right.Left;
             toReplaceNode.Right = currentNode.Right.Right;
 
-            var tempNode = currentNode.Right;
             currentNode.Right = toReplaceNode;
-            tempNode.Left = null;
-            tempNode.Right = null;
-
         }
+
+        Console.WriteLine("Value deleted");
+        return true;
     }
 
     private static BasicTreeNode GetNextInOrderNode(BasicTreeNode currentNode)
     {
-        // Base case on first loop
-        if (currentNode.Left is null && currentNode.Right is null) return currentNode;
-
-        if (currentNode.Left is null) return currentNode;
+        switch (currentNode.Left)
+        {
+            // Base case on first loop
+            case null when currentNode.Right is null:
+            case null:
+                return currentNode;
+        }
 
         if (currentNode.Left.Left is null)
         {
@@ -264,80 +260,77 @@ public class BinarySearchTree
         }
     }
     
-    public void PrintInOrder()
+    public List<int> PrintInOrder()
     {
-        if (Root is null)
-        {
-            Console.WriteLine("No root node");
-            return;
-        }
-        PrintInOrderRecursively(Root);
+        if (Root is not null) return PrintInOrderRecursively(Root, []);
+        Console.WriteLine("No root node");
+        return [];
     }
 
-    private static void PrintInOrderRecursively(BasicTreeNode currentNode)
+    private static List<int> PrintInOrderRecursively(BasicTreeNode currentNode, List<int> printedValues)
     {
         if (currentNode.Left is not null)
         {
-            PrintInOrderRecursively(currentNode.Left);
+            PrintInOrderRecursively(currentNode.Left, printedValues);
         }
-
+    
+        printedValues.Add(currentNode.Value);
         currentNode.PrintNode();
 
         if (currentNode.Right is not null)
         {
-            PrintInOrderRecursively(currentNode.Right);
+            PrintInOrderRecursively(currentNode.Right, printedValues);
         }
+        return printedValues;
     }
     
-    public void PrintPreOrder()
+    public List<int> PrintPreOrder()
     {
-        if (Root is null)
-        {
-            Console.WriteLine("No root node");
-            return;
-        }
-        PrintPreOrderRecursively(Root);
+        if (Root is not null) return PrintPreOrderRecursively(Root, []);
+        Console.WriteLine("No root node");
+        return [];
     }
 
-    private static void PrintPreOrderRecursively(BasicTreeNode currentNode)
+    private static List<int> PrintPreOrderRecursively(BasicTreeNode currentNode, List<int> printedValues)
     {
+        printedValues.Add(currentNode.Value);
         currentNode.PrintNode();
 
         if (currentNode.Left is not null)
         {
-            PrintPreOrderRecursively(currentNode.Left);
+            PrintPreOrderRecursively(currentNode.Left, printedValues);
         }
 
         if (currentNode.Right is not null)
         {
-            PrintPreOrderRecursively(currentNode.Right);
+            PrintPreOrderRecursively(currentNode.Right, printedValues);
         }
+        
+        return printedValues;
     }
     
     
-    public void PrintPostOrder()
+    public List<int> PrintPostOrder()
     {
-        if (Root is null)
-        {
-            Console.WriteLine("No root node");
-            return;
-        }
-        PrintPostOrderRecursively(Root);
+        if (Root is not null) return PrintPostOrderRecursively(Root, []);
+        Console.WriteLine("No root node");
+        return [];
     }
 
-    private static void PrintPostOrderRecursively(BasicTreeNode currentNode)
+    private static List<int> PrintPostOrderRecursively(BasicTreeNode currentNode, List<int> printedValues)
     {
         if (currentNode.Left is not null)
         {
-            PrintPostOrderRecursively(currentNode.Left);
+            PrintPostOrderRecursively(currentNode.Left, printedValues);
         }
 
         if (currentNode.Right is not null)
         {
-            PrintPostOrderRecursively(currentNode.Right);
+            PrintPostOrderRecursively(currentNode.Right, printedValues);
         }
 
+        printedValues.Add(currentNode.Value);
         currentNode.PrintNode();
-
+        return printedValues;
     }
 }
