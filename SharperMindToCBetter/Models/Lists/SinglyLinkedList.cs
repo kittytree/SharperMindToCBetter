@@ -5,9 +5,6 @@ namespace SharperMindToCBetter.Models.Lists;
 public class SinglyLinkedList
 {
     private SingleLinkedNode? Head { get; set; }
-    
-    private SingleLinkedNode? Current { get; set; }
-
     public void AddValue(int value)
     {
         if (Head is null)
@@ -16,15 +13,15 @@ public class SinglyLinkedList
         }
         else
         {
-            Current = Head;
+            var current = Head;
             while (true)
             {
-                if (Current.Next is null)
+                if (current.Next is null)
                 {
-                    Current.Next = new SingleLinkedNode { Value = value };
+                    current.Next = new SingleLinkedNode { Value = value };
                     return;
                 }
-                Current = Current.Next;
+                current = current.Next;
             }
         }
     }
@@ -37,51 +34,57 @@ public class SinglyLinkedList
             return;
         }
         
-        Current = Head;
+        var  current = Head;
         while (true)
         {
-            if (Current.Value == value)
+            if (current.Value == value)
             {
-                Current = null;
+                current = null;
                 Head = null;
                 return;
             }
 
-            if (Current.Next is null)
+            if (current.Next is null)
             {
                 Console.WriteLine("Value doesn't exist in list");
                 return;
             }
 
-            if (Current.Next.Value == value)
+            if (current.Next.Value == value)
             {
-                if (Current.Next.Next is not null)
+                if (current.Next.Next is not null)
                 {
-                    Current.Next = Current.Next.Next;
+                    current.Next = current.Next.Next;
                     Console.WriteLine("Removed Value");
                     return;
                 }
-                Current.Next = null;
+                current.Next = null;
                 Console.WriteLine("Removed Value");
                 return;
             }
             
-            Current = Current.Next;
+            current = current.Next;
             
         }
     }
 
     public List<int> PrintList()
     {
-        List<int> printedList = [];
-        Current = Head;
-        var count = 0;
-        while (Current is not null)
+        if (Head is null)
         {
-            printedList.Add(Current.Value);
-            Console.WriteLine("Position: {0} with Value: {1}", count, Current.Value);
+            Console.WriteLine("List is empty");
+            return [];
+        }
+        
+        List<int> printedList = [];
+        var current = Head;
+        var count = 0;
+        while (current is not null)
+        {
+            printedList.Add(current.Value);
+            Console.WriteLine("Position: {0} with Value: {1}", count, current.Value);
             count++;
-            Current = Current.Next;
+            current = current.Next;
         }
         return printedList;
     }
@@ -89,7 +92,6 @@ public class SinglyLinkedList
     public void ClearList()
     {
         Head = null;
-        Current = null;
         Console.WriteLine("List is now empty");
     }
 }

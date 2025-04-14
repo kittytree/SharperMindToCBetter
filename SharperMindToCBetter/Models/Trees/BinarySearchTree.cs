@@ -4,7 +4,7 @@ namespace SharperMindToCBetter.Models.Trees;
 
 public class BinarySearchTree
 {
-    public int Count { get; set; }
+    private int Count { get; set; }
     private BasicTreeNode? Root { get; set; }
 
     
@@ -85,7 +85,8 @@ public class BinarySearchTree
                 Console.WriteLine("Value deleted");
                 return;
             }
-            
+
+            if (Root.Right is null) return; // silencing compiler warning even though I'm somewhat sure this isn't possible.
             var nextInPlaceNode = GetNextInOrderNode(Root.Right);
             nextInPlaceNode.Left = Root.Left;
             nextInPlaceNode.Right = Root.Right;
