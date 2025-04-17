@@ -101,6 +101,7 @@ public class CyclicalLinkedList
         }
         
         Console.WriteLine("Count: {0} with Value: {1}", count, current.Value);
+        list.Add(current.Value);
         current = current.Next;
         count++;
         

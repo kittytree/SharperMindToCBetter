@@ -5,7 +5,7 @@ namespace SharperMindToCBetter.Models.Lists;
 public class SinglyLinkedList
 {
     private SingleLinkedNode? Head { get; set; }
-    public void AddValue(int value)
+    public void InsertValue(int value)
     {
         if (Head is null)
         {
@@ -26,7 +26,7 @@ public class SinglyLinkedList
         }
     }
 
-    public void RemoveValue(int value)
+    public void DeleteValue(int value)
     {
         if (Head is null)
         {

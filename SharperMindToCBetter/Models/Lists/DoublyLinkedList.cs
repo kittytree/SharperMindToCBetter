@@ -6,7 +6,7 @@ public class DoublyLinkedList
 {
     private DoublyLinkedNode? Head { get; set; }
     private DoublyLinkedNode? Tail { get; set; }
-    public void AddValue(int value)
+    public void InsertValue(int value)
     {
         if (Head is null || Tail is null)
         {
