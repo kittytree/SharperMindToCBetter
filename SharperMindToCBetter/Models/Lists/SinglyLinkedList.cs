@@ -35,36 +35,42 @@ public class SinglyLinkedList
         }
         
         var  current = Head;
-        while (true)
+        if (current.Value == value)
         {
-            if (current.Value == value)
+            if (current.Next is null)
             {
-                current = null;
                 Head = null;
+                Console.WriteLine("SinglyLinkedList is empty and value deleted");
                 return;
             }
 
+            Head = current.Next;
+            Console.WriteLine("Value deleted");
+            return;
+        }
+        while (true)
+        {
             if (current.Next is null)
             {
-                Console.WriteLine("Value doesn't exist in list");
+                Console.WriteLine("Value not found");
                 return;
             }
 
             if (current.Next.Value == value)
             {
-                if (current.Next.Next is not null)
+                if (current.Next.Next is null)
                 {
-                    current.Next = current.Next.Next;
-                    Console.WriteLine("Removed Value");
+                    current.Next = null;
+                    Console.WriteLine("Value not found");
                     return;
                 }
-                current.Next = null;
-                Console.WriteLine("Removed Value");
+
+                current.Next = current.Next.Next;
+                Console.WriteLine("Value deleted");
                 return;
             }
             
             current = current.Next;
-            
         }
     }
 
